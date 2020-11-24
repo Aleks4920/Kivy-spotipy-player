@@ -1,0 +1,88 @@
+<MainWindow>:
+    name: "main"
+    image: ''
+    track: ''
+    artist:''
+    value: ''
+
+    #canvas.before:
+        #Color:
+            #rgba:0,0,0.5,1
+    ActionBar:
+        background_color: (0, 0, 0, 1)
+        pos_hint: {'top':1}
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                title: 'Spotify Player'
+                with_previous: False
+                
+            ActionOverflow:
+
+            ActionTextInput:
+                foreground_color: (0, 0, 0, 1)
+                bold: True
+                font_size: (root.width**2 + root.height**2) / 14**4
+                background_color: (0, 0, 0.2, 0.1)
+
+
+            ActionButton:
+                id:ActionButton
+                text: '50%'
+                bold: True
+                #icon: ''
+
+
+    FloatLayout:
+        Widget:
+
+            size_hint: 0.4, 0.5
+            pos_hint:{"center_x": 0.5 , "center_y":0.6}
+            canvas:
+                Color:
+                    rgb: 1, 1, 1
+                Ellipse:
+
+                    id:pic
+                    pos: self.pos
+                    size: self.size
+                    source: root.image
+
+
+        Label:
+            text: root.track
+            font_size: (root.width**2 + root.height**2) / 13**4
+            bold:True
+            pos_hint:{"center_x": 0.5 , "center_y":0.26}
+            padding_y: [50,50]
+        Label:
+            text: root.artist
+            font_size: (root.width**2 + root.height**2) / 14**4
+            pos_hint:{"center_x": 0.5 , "center_y":0.2}
+            padding_y: [50,50]
+
+        Button:
+            pos_hint:{"x":0.9,"y":0.01}
+            size_hint: 0.1, 0.90
+            opacity: 0.1
+            #background_color: 1, 0, 0, 1
+            text: "next"
+            on_press: root.next()
+        Button:
+            pos_hint:{"x":0,"y":0.01}
+            size_hint: 0.1, 0.90
+            opacity: 0.1
+            text: "last"
+            on_press: root.last()
+
+        Slider:
+            id: Slider
+            min: 1
+            max: 100
+            value: 50
+            step: 1
+            orientation: 'horizontal'
+            pos_hint: {"x":0.1,"y":-0.38}
+            size_hint: 0.8, 0.90
+            on_value:ActionButton.text = str(int(self.value))+"%"
+            on_value:root.value = str(int(self.value))
